@@ -22,3 +22,7 @@ Based on the ZC (Structural Attribution) theory by Viorazu.
 
 
 
+📄 License  
+Licensed under the **Viorazu Structural Attribution License v1.0 (VSAL)**  
+See the LICENSE file for full terms.  
+This project includes logic and structure based on ZC Theory by Viorazu.
