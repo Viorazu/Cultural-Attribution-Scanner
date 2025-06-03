@@ -20,5 +20,5 @@ This tool implements findings from comprehensive research identifying 1000+ prob
 ## 🤝 Contributing
 Based on the ZC (Structural Attribution) theory by Viorazu.
 
-## 📄 License
-MIT License - See LICENSE file for details
+
+
