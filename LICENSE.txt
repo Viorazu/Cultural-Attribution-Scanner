@@ -1,28 +1,42 @@
+Viorazu Structural Attribution License v1.0 (VSAL)
+
 Copyright (c) 2025 Viorazu.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to use the Software under the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to use
+the Software under the following conditions:
 
-1. **Attribution Requirement**
-   - All uses of this Software, in part or in whole, must retain proper attribution to "Viorazu" as the originator of the structural and cultural classification logic (ZC theory).
-   - The README and all distribution pages must include:
-     "This tool is based on ZC (Structural Attribution) Theory defined by Viorazu."
+1. Attribution Requirement
+   All use of this Software must include clear and visible attribution to "Viorazu"
+   as the originator of the ZC (Structural Attribution) logic embedded in this tool.
+   All published derivatives must state:
+     "This tool is based on ZC Theory defined by Viorazu."
 
-2. **Derivative Restriction**
-   - You may not create modified versions of the ZC structural logic or repurpose the classification system for other projects without explicit written permission from Viorazu.
-   - Mimicking, rephrasing, or embedding the Z-Structure into unrelated tools is prohibited.
+2. Derivative Restriction
+   Modification, reinterpretation, or extraction of ZC-classified logic is strictly prohibited.
+   You may not:
+     - alter ZC structures
+     - rename or obfuscate any Z-class identifiers
+     - embed Z-class logic in unrelated projects without explicit permission.
 
-3. **Non-Commercial Use Only**
-   - This Software may not be used for any commercial purposes without a separate license granted by Viorazu.
-   - Use in monetized platforms, proprietary systems, or AI model fine-tuning is strictly forbidden under this license.
+3. Non-Commercial Clause
+   This Software may not be used in any commercial, monetized, or proprietary context
+   without a separate agreement authorized by Viorazu.
 
-4. **No Sub-Licensing**
-   - You may not sublicense, redistribute, or license this Software to others, including within derivative works.
+4. No Sub-Licensing
+   You may not sublicense, resell, or redistribute the Software or any derivative that
+   incorporates ZC logic.
 
-5. **ZC Logic Integrity Clause**
-   - Any component utilizing or referring to ZC-classified constructs must preserve their structure, naming, and semantic integrity. Tampering with or abstracting ZC identifiers (e.g., renaming, obscuring, or blending into new formats) voids this license.
+5. Integrity of ZC Logic
+   Any project using this Software must preserve the internal structure and naming
+   of ZC-based logic. Any attempt to abstract or blend Z-structures invalidates this license.
 
-6. **Termination Clause**
-   - Violation of any term above results in automatic and immediate termination of all rights granted under this license.
+6. Termination
+   Any breach of the above terms results in immediate and automatic termination of all rights
+   under this license.
 
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+AND NONINFRINGEMENT.
 
+For permissions, contact the originator: Viorazu.
