@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultural Misunderstanding Prevention Scanner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .input-section {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #1e3c72;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+        
+        .scan-btn {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        .scan-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .results {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .risk-category {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .risk-translation { border-left-color: #e74c3c; }
+        .risk-legal { border-left-color: #f39c12; }
+        .risk-cultural { border-left-color: #3498db; }
+        .risk-cognitive { border-left-color: #9b59b6; }
+        
+        .risk-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .risk-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .risk-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .problematic-phrase {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .phrase-text {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #c53030;
+            margin-bottom: 8px;
+        }
+        
+        .japanese-misunderstanding {
+            background: #fff5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 8px 0;
+            border-left: 3px solid #e53e3e;
+        }
+        
+        .cultural-explanation {
+            background: #f7fafc;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 8px 0;
+            border-left: 3px solid #4299e1;
+        }
+        
+        .suggested-alternative {
+            background: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .alternative-text {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #2f855a;
+            margin-bottom: 5px;
+        }
+        
+        .improvement-note {
+            font-size: 0.9rem;
+            color: #2d3748;
+            font-style: italic;
+        }
+        
+        .summary-stats {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            display: inline-block;
+            margin: 0 20px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ Cultural Misunderstanding Prevention Scanner</h1>
+            <p>Protect your research from cultural misinterpretation and unauthorized use by Japanese speakers</p>
+        </div>
+        
+        <div class="input-section">
+            <label for="textInput">Enter your text (research paper, social media post, license terms, etc.):</label>
+            <textarea id="textInput" placeholder="Paste your text here to scan for potentially problematic phrases that could be misunderstood by Japanese speakers..."></textarea>
+            <button class="scan-btn" onclick="scanText()">🔍 Scan for Cultural Misunderstanding Risks</button>
+        </div>
+        
+        <div id="results" class="results">
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <span id="riskCount" class="stat-number">0</span>
+                    <span class="stat-label">Risk Phrases Found</span>
+                </div>
+                <div class="stat-item">
+                    <span id="riskLevel" class="stat-number">LOW</span>
+                    <span class="stat-label">Overall Risk Level</span>
+                </div>
+            </div>
+            
+            <div id="translationRisks" class="risk-category risk-translation">
+                <div class="risk-header">
+                    <span class="risk-icon">🌐</span>
+                    <span class="risk-title">Translation System Problems</span>
+                </div>
+                <p><strong>Issue:</strong> Machine translation software systematically mistranslates these phrases, leading to dangerous misunderstandings.</p>
+                <div id="translationIssues"></div>
+            </div>
+            
+            <div id="legalRisks" class="risk-category risk-legal">
+                <div class="risk-header">
+                    <span class="risk-icon">⚖️</span>
+                    <span class="risk-title">Legal System Differences</span>
+                </div>
+                <p><strong>Issue:</strong> Japanese legal concepts differ fundamentally from Anglo-American law, creating misunderstanding of rights and obligations.</p>
+                <div id="legalIssues"></div>
+            </div>
+            
+            <div id="culturalRisks" class="risk-category risk-cultural">
+                <div class="risk-header">
+                    <span class="risk-icon">🏛️</span>
+                    <span class="risk-title">Cultural Context Gaps</span>
+                </div>
+                <p><strong>Issue:</strong> Cultural assumptions about sharing, attribution, and intellectual property differ significantly between cultures.</p>
+                <div id="culturalIssues"></div>
+            </div>
+            
+            <div id="cognitiveRisks" class="risk-category risk-cognitive">
+                <div class="risk-header">
+                    <span class="risk-icon">🧠</span>
+                    <span class="risk-title">Cognitive Processing Differences</span>
+                </div>
+                <p><strong>Issue:</strong> Different thought patterns and logical frameworks lead to systematic misinterpretation of permissions and restrictions.</p>
+                <div id="cognitiveIssues"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const riskPatterns = {
+            translation: [
+                {
+                    phrase: "feel free to",
+                    misunderstanding: "Japanese speakers interpret this as 'unlimited permission without conditions'",
+                    cultural_context: "In Japanese culture, 'feel free' suggests complete freedom rather than conditional permission",
+                    alternative: "You may use this with attribution and under the following conditions:",
+                    improvement: "Explicitly states conditions and requirements"
+                },
+                {
+                    phrase: "freely available",
+                    misunderstanding: "Understood as 'free to use for any purpose without restriction'",
+                    cultural_context: "The concept of 'free' in Japanese doesn't include the nuanced conditions implied in English",
+                    alternative: "This content is publicly accessible but usage rights are limited to:",
+                    improvement: "Clarifies access vs usage rights"
+                },
+                {
+                    phrase: "public domain",
+                    misunderstanding: "Any online content is assumed to be 'public domain' and freely usable",
+                    cultural_context: "Public domain concept is poorly understood in Japan; often confused with 'publicly visible'",
+                    alternative: "This work is specifically released under public domain dedication (CC0), meaning:",
+                    improvement: "Explicitly confirms true public domain status"
+                }
+            ],
+            legal: [
+                {
+                    phrase: "you agree by using",
+                    misunderstanding: "Usage doesn't constitute legal agreement",
+                    cultural_context: "Implicit contract formation is not well understood in Japanese legal culture",
+                    alternative: "By using this service, you explicitly agree to a legally binding contract that includes:",
+                    improvement: "Makes contract formation explicit and clear"
+                },
+                {
+                    phrase: "license is revocable",
+                    misunderstanding: "Once given permission, it cannot be taken away",
+                    cultural_context: "Permanent license concept is more familiar than revocable licensing in Japan",
+                    alternative: "This permission can be withdrawn at any time without notice, immediately terminating your right to:",
+                    improvement: "Clearly explains the temporary nature of permission"
+                },
+                {
+                    phrase: "subject to terms",
+                    misunderstanding: "Terms are optional guidelines rather than binding conditions",
+                    cultural_context: "Legal binding force of 'terms' is often underestimated",
+                    alternative: "Usage is only permitted if you fully comply with these mandatory requirements:",
+                    improvement: "Emphasizes the binding nature of terms"
+                }
+            ],
+            cultural: [
+                {
+                    phrase: "sharing is encouraged",
+                    misunderstanding: "Any form of sharing or redistribution is welcomed",
+                    cultural_context: "Sharing culture in Japan emphasizes community benefit over individual rights",
+                    alternative: "Sharing via official links is encouraged. Redistribution or copying requires permission.",
+                    improvement: "Distinguishes between different types of sharing"
+                },
+                {
+                    phrase: "use this as inspiration",
+                    misunderstanding: "Direct copying is acceptable if you call it 'inspiration'",
+                    cultural_context: "The line between inspiration and copying is culturally interpreted differently",
+                    alternative: "You may be influenced by these ideas, but any substantial similarity requires attribution and may need permission.",
+                    improvement: "Clarifies the limits of inspiration-based use"
+                },
+                {
+                    phrase: "community contribution",
+                    misunderstanding: "Community contributions become common property without individual ownership",
+                    cultural_context: "Collective ownership concepts can override individual copyright understanding",
+                    alternative: "This contribution to the community retains the original author's copyright and attribution requirements.",
+                    improvement: "Preserves individual rights within community context"
+                }
+            ],
+            cognitive: [
+                {
+                    phrase: "this may result in",
+                    misunderstanding: "'May' is interpreted as definite future occurrence",
+                    cultural_context: "Probability and uncertainty expressions are processed differently",
+                    alternative: "There is a possibility this could result in [outcome], but it is not guaranteed and depends on [conditions].",
+                    improvement: "Explicitly explains uncertainty and conditions"
+                },
+                {
+                    phrase: "not necessarily",
+                    misunderstanding: "Complete denial or rejection of the statement",
+                    cultural_context: "Logical qualifiers are often interpreted as absolute rather than conditional",
+                    alternative: "This is true in some cases but not in all cases. It depends on [specific conditions].",
+                    improvement: "Provides concrete context for the qualification"
+                },
+                {
+                    phrase: "we suggest that",
+                    misunderstanding: "Authoritative recommendation or established fact",
+                    cultural_context: "Suggestion carries more weight in Japanese hierarchical communication",
+                    alternative: "This is one possible explanation among others. Further research is needed to confirm this hypothesis.",
+                    improvement: "Clearly indicates the tentative nature of the suggestion"
+                }
+            ]
+        };
+
+        function scanText() {
+            const text = document.getElementById('textInput').value.toLowerCase();
+            if (!text.trim()) {
+                alert('Please enter some text to scan.');
+                return;
+            }
+
+            let totalRisks = 0;
+            let maxRiskLevel = 0;
+
+            // Clear previous results
+            document.getElementById('translationIssues').innerHTML = '';
+            document.getElementById('legalIssues').innerHTML = '';
+            document.getElementById('culturalIssues').innerHTML = '';
+            document.getElementById('cognitiveIssues').innerHTML = '';
+
+            // Scan for each category
+            Object.keys(riskPatterns).forEach(category => {
+                const issues = [];
+                riskPatterns[category].forEach(pattern => {
+                    if (text.includes(pattern.phrase)) {
+                        issues.push(pattern);
+                        totalRisks++;
+                        maxRiskLevel = Math.max(maxRiskLevel, 1);
+                    }
+                });
+
+                if (issues.length > 0) {
+                    const container = document.getElementById(category + 'Issues');
+                    issues.forEach(issue => {
+                        container.innerHTML += createIssueHTML(issue);
+                    });
+                }
+            });
+
+            // Update summary stats
+            document.getElementById('riskCount').textContent = totalRisks;
+            const riskLevels = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
+            const riskLevel = totalRisks === 0 ? 'LOW' : totalRisks < 3 ? 'MEDIUM' : totalRisks < 6 ? 'HIGH' : 'CRITICAL';
+            document.getElementById('riskLevel').textContent = riskLevel;
+
+            // Show results
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function createIssueHTML(issue) {
+            return `
+                <div class="problematic-phrase">
+                    <div class="phrase-text">"${issue.phrase}"</div>
+                    <div class="japanese-misunderstanding">
+                        <strong>❌ How Japanese speakers misunderstand:</strong> ${issue.misunderstanding}
+                    </div>
+                    <div class="cultural-explanation">
+                        <strong>🏛️ Cultural context:</strong> ${issue.cultural_context}
+                    </div>
+                    <div class="suggested-alternative">
+                        <strong>✅ Suggested safer alternative:</strong>
+                        <div class="alternative-text">"${issue.alternative}"</div>
+                        <div class="improvement-note">${issue.improvement}</div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
